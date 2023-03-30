@@ -187,3 +187,9 @@ Getters, Setters, Constructors, and Builders.
 3. Update POJO getter and setter with Lombok Annotations `@getter` and `@setter` or `@Data`.
 4. Trigger Mapstruct processing by executing an `mvn clean install` command. This will generate the implementation class
    under _/target/generated-sources/annotations/_.
+
+### References:
+
+1. https://mapstruct.org/#get-started
+2. https://www.baeldung.com/mapstruct
+3. https://springframework.guru/using-mapstruct-with-project-lombok/

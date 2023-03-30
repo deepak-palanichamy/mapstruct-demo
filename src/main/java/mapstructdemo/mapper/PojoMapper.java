@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper
-public interface PojoDtoMapper {
+public interface PojoMapper {
     User userDtoToUser(UserDto userDto);
 
     UserDto userToUserDto(User user);

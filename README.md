@@ -15,9 +15,9 @@ MapStruct solves this problem by **generating bean mapper classes automatically*
 ```xml
 
 <dependency>
-   <groupId>org.mapstruct</groupId>
-   <artifactId>mapstruct</artifactId>
-   <version>1.5.3.Final</version>
+    <groupId>org.mapstruct</groupId>
+    <artifactId>mapstruct</artifactId>
+    <version>1.5.3.Final</version>
 </dependency>
 ```
 
@@ -187,6 +187,37 @@ Getters, Setters, Constructors, and Builders.
 3. Update POJO getter and setter with Lombok Annotations `@getter` and `@setter` or `@Data`.
 4. Trigger Mapstruct processing by executing an `mvn clean install` command. This will generate the implementation class
    under _/target/generated-sources/annotations/_.
+
+---
+
+## Advanced configurations
+
+### Custom mapping
+
+We can implement a specific mapping manually by defining the logic to transform one object into another. This can be
+implemented by defining a `default` method in the mapper interface. This `default` method's implementation will not be
+auto-generated again when we run `mvn clean install` command, as it was already implemented.
+
+```java
+
+@Mapper
+public interface PojoMapper {
+
+    User userDtoToUser(UserDto userDto);
+
+    default UserDto userToUserDto(User user) {
+        return UserDto.builder()
+                .fullName(user.getFirstName() + " " + user.getLastName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
+    }
+}
+```
+
+---
 
 ### References:
 

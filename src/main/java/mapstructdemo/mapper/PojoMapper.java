@@ -1,23 +1,23 @@
 package mapstructdemo.mapper;
 
-import mapstructdemo.dto.EmployeeDto;
 import mapstructdemo.dto.UserDto;
-import mapstructdemo.entity.Employee;
 import mapstructdemo.entity.User;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper
 public interface PojoMapper {
     User userDtoToUser(UserDto userDto);
 
-    UserDto userToUserDto(User user);
+//    @Mapping(target = "fullName", expression = "java(user.getFirstName()+\" \"+user.getLastName())")
+//    UserDto userToUserDto(User user);
 
-    @Mapping(source = "employeeDto.employeeName", target = "name")
-    @Mapping(source = "employeeDto.employeeJobTitle", target = "jobTitle")
-    Employee employeeDtoToEmployee(EmployeeDto employeeDto);
-
-    @Mapping(source = "employee.name", target = "employeeName")
-    @Mapping(source = "employee.jobTitle", target = "employeeJobTitle")
-    EmployeeDto employeeToEmployeeDto(Employee employee);
+    default UserDto userToUserDto(User user) {
+        return UserDto.builder()
+                .fullName(user.getFirstName() + " " + user.getLastName())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
+    }
 }
